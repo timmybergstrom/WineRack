@@ -5,6 +5,10 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to the Wine Rack</h1>
+</div>
+<div class="align-content-center">
+    <input asp-controller="Bottles" asp-route="Index" class="btn btn-primary" value="Get your collection" />
+    <input asp-controller="Bottles" asp-route="Index" class="btn btn-danger" value="Add a new bottle" />
+    <input asp-controller="Bottles" asp-route="Index" class="btn btn-success" value="Add a new winery" />
 </div>
