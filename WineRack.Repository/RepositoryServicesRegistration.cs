@@ -1,5 +1,13 @@
-﻿namespace WineRack.Repository;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
-public class RepositoryServicesRegistration
+namespace WineRack.Repository;
+
+public static class RepositoryServicesRegistration
 {
+	public static IServiceCollection AddRepositoryServices(this IServiceCollection services, IConfiguration configuration)
+	{
+
+		return services;
+	}
 }

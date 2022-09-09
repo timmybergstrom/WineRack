@@ -1,4 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using WineRack.Application;
+using WineRack.Domain;
+using WineRack.Repository;
+//using SeriLog;
+
+//Log.Logger = new LoggerConfiguration()
+  //  .MinimumLevel.Debug()
+    //.WriteTo.Console()
+    //.WriteTo.File("logs/wineracklogs.txt", rollingInterval: RollingInterval.Day)
+    //.CreateLogger();
+
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
+
+//builder.Host.UseSeriLog();
 
 // Add services to the container.
 
@@ -7,9 +22,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//builder.Services.AddApplicationServicesRegistration;
-//builder.Services.AddRepositoryServicesRegistration;
-//builder.Services.AddDomainServicesRegistration;
+builder.Services.AddApplicationServices(configuration);
+builder.Services.AddRepositoryServices(configuration);
+builder.Services.AddDomainServices(configuration);
 
 var app = builder.Build();
 

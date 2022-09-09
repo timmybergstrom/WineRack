@@ -1,11 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 namespace WineRack.Domain;
 
-public class DomainServicesRegistration 
+public static class DomainServicesRegistration 
 {
+	public static IServiceCollection AddDomainServices(this IServiceCollection services, IConfiguration configuration)
+	{
+        services.AddDbContext<WineRackContext>(options =>
+        {
+            options.UseSqlServer(configuration.GetConnectionString("WineRackDb"));
+        });
+        return services;
+	}
 }

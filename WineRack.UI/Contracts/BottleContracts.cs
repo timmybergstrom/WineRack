@@ -2,6 +2,6 @@
 {
     public class BottleContracts
     {
-        Task<BottleVM> GetBottleById(int bottleId);
+        //Task<BottleVM> GetBottleById(int bottleId);
     }
 }
