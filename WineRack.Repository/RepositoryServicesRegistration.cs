@@ -9,6 +9,9 @@ public static class RepositoryServicesRegistration
 	{
 
 		services.AddScoped<IBaseServices, BaseRepository>();
+		services.AddScoped<IAsyncServices, AsyncRepository>();
+		services.AddScoped<IVarietalService, VarietalRepository>();
+		services.AddScoped<IWineryServices, WineryRepository>();
 		return services;
 	}
 }

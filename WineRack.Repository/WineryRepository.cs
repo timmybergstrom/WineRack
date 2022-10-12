@@ -17,4 +17,16 @@ public class WineryRepository : AsyncRepository, IWineryServices
             .Where(w => w.Id == wineryId)
             .FirstAsync();
     }
+
+    public async Task<IEnumerable<Winery>> GetWineryList()
+    {
+        var wineries = await _wineRackDb.Wineries
+            .Include(w => w.Country)
+            .Include(w => w.Bottles)
+            .Where(w => w.IsActive == true)
+            .AsNoTracking()
+            .ToListAsync();
+
+        return wineries;
+    }
 }
