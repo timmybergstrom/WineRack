@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WineRack.Domain\WineRack.Domain.csproj" />
+    <ProjectReference Include="..\WineRack.Application\WineRack.Application.csproj" /> 
   </ItemGroup>
 
 </Project>

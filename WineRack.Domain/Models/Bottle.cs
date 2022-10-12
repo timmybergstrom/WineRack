@@ -3,8 +3,8 @@
     public class Bottle : AuditableEntity
     {
         public int Id { get; set; }
-        //public Winery Winery { get; set; } = new();
-        //public Region Region { get; set; } = new();
+        public Winery Winery { get; set; } = new();
+        public Region Region { get; set; } = new();
         public string Vintage { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public int NumberOfBottles { get; set; }

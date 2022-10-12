@@ -6,3 +6,5 @@ global using System.Threading.Tasks;
 global using MediatR;
 global using AutoMapper;
 
+global using WineRack.Domain.Models;
+

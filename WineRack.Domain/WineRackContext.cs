@@ -43,15 +43,25 @@ public class WineRackContext : DbContext
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof (WineRackContext).Assembly);
 
-        //modelBuilder.Entity<Bottle>()
-          //  .HasOne(w => w.Winery)
-           // .WithMany()
-           // .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<Region>()
+            .HasMany(r => r.Bottles)
+            .WithOne(b => b.Region)
+            .HasConstraintName("FK_RegionBottle")
+            .OnDelete(DeleteBehavior.NoAction);
 
-        //modelBuilder.Entity<Winery>()
-        //    .HasMany(w => w.Bottles)
-        //    .WithOne()
-        //    .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<Winery>()
+           .HasMany(w => w.Bottles)
+           .WithOne(b => b.Winery)
+           .HasConstraintName("FK_WineryBottle")
+        .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<BottleVarietal>()
+            .HasOne(b => b.Bottle)
+            .WithMany(v => v.BottleVarietalList);
+
+        modelBuilder.Entity<Winery>()
+            .HasOne(c => c.Country)
+            .WithMany(w => w.Wineries);
 
         #region Countries
         modelBuilder.Entity<Country>().HasData(new Country

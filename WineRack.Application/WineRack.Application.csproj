@@ -27,7 +27,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WineRack.Domain\WineRack.Domain.csproj" />
-    <ProjectReference Include="..\WineRack.Repository\WineRack.Repository.csproj" />
     <ProjectReference Include="..\WineRack.Shared\WineRack.Shared.csproj" />
   </ItemGroup>
 

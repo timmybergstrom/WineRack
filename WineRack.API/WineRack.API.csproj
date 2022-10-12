@@ -26,13 +26,12 @@
   <ItemGroup>
     <Project Include="WineRack.Application" /> 
     <Project Include="WineRack.Domain" />
-    <Project Include="WineRack.Repository" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\WineRack.Application\WineRack.Application.csproj" />
-    <ProjectReference Include="..\WineRack.Domain\WineRack.Domain.csproj" />
     <ProjectReference Include="..\WineRack.Repository\WineRack.Repository.csproj" />
+    <ProjectReference Include="..\WineRack.Domain\WineRack.Domain.csproj" />
   </ItemGroup>
 
 </Project>

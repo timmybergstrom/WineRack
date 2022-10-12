@@ -15,16 +15,8 @@ public class BottleConfiguration : IEntityTypeConfiguration<Bottle>
 
         builder.Property(b => b.Name)
             .IsRequired();
-        
-       // builder.Property(b => b.Winery)
-         //   .IsRequired()
-         //   .ValueGeneratedNever();
 
-        //builder.Property(b => b.Region)
-          //  .IsRequired()
-           // .ValueGeneratedNever();
-
-        builder.Property(b => b.BottleNote.Id)
-            .ValueGeneratedOnAdd();         
+        builder.Property(b => b.Vintage)
+            .HasMaxLength(4);         
     }
 }
