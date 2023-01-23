@@ -20,6 +20,7 @@ public class WineRackContext : DbContext
         public DbSet<User> Users { get; set; }
         public DbSet<Varietal> Varietals { get; set; }
         public DbSet<Winery> Wineries { get;set; }
+        public DbSet<WineryCountry> WineryCountries  { get; set; }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {
@@ -59,9 +60,9 @@ public class WineRackContext : DbContext
             .HasOne(b => b.Bottle)
             .WithMany(v => v.BottleVarietalList);
 
-        modelBuilder.Entity<Winery>()
-            .HasOne(c => c.Country)
-            .WithMany(w => w.Wineries);
+        modelBuilder.Entity<WineryCountry>()
+            .HasOne(b => b.Winery)
+            .WithMany(v => v.WineryCountry);
 
         #region Countries
         modelBuilder.Entity<Country>().HasData(new Country

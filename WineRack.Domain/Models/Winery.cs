@@ -8,8 +8,7 @@ public class Winery : AuditableEntity
     }
 
     public int Id { get; set; }
-    public Country Country { get; set; } = new();
+    public List<WineryCountry> WineryCountry { get; set; } = new();
     public string Name { get; set; } = string.Empty;
-    public List<Bottle> Bottles { get; set; } 
-
+    public List<Bottle> Bottles { get; set; }
 }

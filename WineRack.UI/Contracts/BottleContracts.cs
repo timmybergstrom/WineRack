@@ -1,6 +1,6 @@
 ﻿namespace WineRack.UI.Contracts
 {
-    public class BottleContracts
+    public interface IBottleContracts
     {
         //Task<BottleVM> GetBottleById(int bottleId);
     }

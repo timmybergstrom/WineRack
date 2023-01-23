@@ -12,18 +12,18 @@ public class WineryRepository : AsyncRepository, IWineryServices
     public async Task<Winery> GetWineryFull(int wineryId)
     {
         return await _wineRackDb.Wineries
-            .Include(w => w.Country)
+            .Include(w => w.WineryCountry).ThenInclude(u => u.Country)
             .Include(w => w.Bottles)
             .Where(w => w.Id == wineryId)
             .FirstAsync();
     }
 
-    public async Task<IEnumerable<Winery>> GetWineryList()
+    public async Task<List<WineryCountry>> GetWineryList()
     {
-        var wineries = await _wineRackDb.Wineries
+        var wineries = await _wineRackDb.WineryCountries
             .Include(w => w.Country)
-            .Include(w => w.Bottles)
-            .Where(w => w.IsActive == true)
+            .Include(u => u.Winery).ThenInclude(w => w.Bottles)
+            .Where(w => w.Winery.IsActive == true)
             .AsNoTracking()
             .ToListAsync();
 

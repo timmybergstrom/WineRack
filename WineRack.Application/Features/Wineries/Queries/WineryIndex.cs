@@ -1,37 +1,40 @@
 using Microsoft.Extensions.Logging;
 using WineRack.Application.Contracts;
+using WineRack.Shared.Models.Winery;
 
-namespace WineRack.Application.Wineries;
+namespace WineRack.Application.Features.Wineries;
 
-public class WineryIndexQuery : IRequest<List<Winery>>
+public class WineryIndexQuery : IRequest<List<WineryFullVM>>
 {
 
 }
 
-internal class WineryIndexHandler : IRequestHandler<WineryIndexQuery, IEnumerable<Winery>>
+internal class WineryIndexHandler : IRequestHandler<WineryIndexQuery, List<WineryFullVM>>
 {
-    private readonly IWineryServices _services;
-    //private readonly ILogger _logger;
-    private IEnumerable<Winery> wineries;
+    private readonly IWineryServices services;
+    private readonly IMapper mapper;
+    private readonly ILogger<WineryIndexHandler> logger;
+    private List<WineryFullVM> wineriesVM = new();
 
-    public WineryIndexHandler(IWineryServices services, //ILogger logger, 
-        IEnumerable<Winery> wineries)
+    public WineryIndexHandler(IWineryServices services, IMapper mapper, ILogger<WineryIndexHandler> logger)
     {
-        _services = services;
-        //_logger = logger;
-        this.wineries = wineries;
+        this.services = services;
+        this.mapper = mapper;
+        this.logger = logger;
     }
 
-    public async Task<IEnumerable<Winery>> Handle(WineryIndexQuery request, CancellationToken cancellationToken)
+    public async Task<List<WineryFullVM>> Handle(WineryIndexQuery request, CancellationToken cancellationToken)
     {
         try
         {
-            wineries = await _services.GetWineryList();
+            var wineries = await services.GetWineryList();
+            wineriesVM = mapper.Map<List<WineryFullVM>>(wineries);
+            logger.LogInformation("Get winery started.");
         }
         catch (Exception ex)
         {
-            //_logger.LogError(null, ex.Message.ToString(), 1);
+            logger.LogError(ex.Message.ToString());
         }
-        return wineries;
+        return wineriesVM;
     }
 }

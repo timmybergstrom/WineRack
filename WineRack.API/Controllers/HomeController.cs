@@ -1,15 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WineRack.Application.Features.Wineries;
 
 namespace WineRack.API.Controllers
 {
     [ApiController]
-    [Route("winerack/home")]
-    public class HomeController : Controller
+    [Route("winerack/")]
+    public class HomeController : ControllerBase
     {
-        [HttpGet("home")]
-        public IActionResult Index()
+        private readonly IMediator _mediator;
+        public HomeController(IMediator mediator)
         {
-            return View();
+            _mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            return Ok(await _mediator.Send(new GetHome(){}));
         }
     }
 }

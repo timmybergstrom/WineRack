@@ -12,6 +12,7 @@ public static class RepositoryServicesRegistration
 		services.AddScoped<IAsyncServices, AsyncRepository>();
 		services.AddScoped<IVarietalService, VarietalRepository>();
 		services.AddScoped<IWineryServices, WineryRepository>();
+		services.AddScoped<IVerificationServices, VerificationRepository>();
 		return services;
 	}
 }

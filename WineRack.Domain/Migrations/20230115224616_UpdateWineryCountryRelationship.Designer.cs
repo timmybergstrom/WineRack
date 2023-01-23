@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WineRack.Domain;
 
@@ -11,9 +12,10 @@ using WineRack.Domain;
 namespace WineRack.Domain.Migrations
 {
     [DbContext(typeof(WineRackContext))]
-    partial class WineRackContextModelSnapshot : ModelSnapshot
+    [Migration("20230115224616_UpdateWineryCountryRelationship")]
+    partial class UpdateWineryCountryRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -609,7 +611,7 @@ namespace WineRack.Domain.Migrations
 
                     b.HasIndex("WineryId");
 
-                    b.ToTable("WineryCountries");
+                    b.ToTable("WineryCountry");
                 });
 
             modelBuilder.Entity("WineRack.Domain.Models.Bottle", b =>

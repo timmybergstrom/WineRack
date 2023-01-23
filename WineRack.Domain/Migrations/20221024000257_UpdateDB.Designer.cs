@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WineRack.Domain;
 
@@ -11,9 +12,10 @@ using WineRack.Domain;
 namespace WineRack.Domain.Migrations
 {
     [DbContext(typeof(WineRackContext))]
-    partial class WineRackContextModelSnapshot : ModelSnapshot
+    [Migration("20221024000257_UpdateDB")]
+    partial class UpdateDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -564,6 +566,9 @@ namespace WineRack.Domain.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
@@ -586,30 +591,9 @@ namespace WineRack.Domain.Migrations
                     b.HasKey("Id")
                         .HasName("PK_Winery");
 
-                    b.ToTable("Wineries");
-                });
-
-            modelBuilder.Entity("WineRack.Domain.Models.WineryCountry", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("CountryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WineryId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
                     b.HasIndex("CountryId");
 
-                    b.HasIndex("WineryId");
-
-                    b.ToTable("WineryCountries");
+                    b.ToTable("Wineries");
                 });
 
             modelBuilder.Entity("WineRack.Domain.Models.Bottle", b =>
@@ -682,23 +666,15 @@ namespace WineRack.Domain.Migrations
                     b.Navigation("Bottle");
                 });
 
-            modelBuilder.Entity("WineRack.Domain.Models.WineryCountry", b =>
+            modelBuilder.Entity("WineRack.Domain.Models.Winery", b =>
                 {
                     b.HasOne("WineRack.Domain.Models.Country", "Country")
-                        .WithMany()
+                        .WithMany("Wineries")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WineRack.Domain.Models.Winery", "Winery")
-                        .WithMany("WineryCountry")
-                        .HasForeignKey("WineryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Country");
-
-                    b.Navigation("Winery");
                 });
 
             modelBuilder.Entity("WineRack.Domain.Models.Bottle", b =>
@@ -706,6 +682,11 @@ namespace WineRack.Domain.Migrations
                     b.Navigation("BottleVarietalList");
 
                     b.Navigation("TastingNoteList");
+                });
+
+            modelBuilder.Entity("WineRack.Domain.Models.Country", b =>
+                {
+                    b.Navigation("Wineries");
                 });
 
             modelBuilder.Entity("WineRack.Domain.Models.Region", b =>
@@ -716,8 +697,6 @@ namespace WineRack.Domain.Migrations
             modelBuilder.Entity("WineRack.Domain.Models.Winery", b =>
                 {
                     b.Navigation("Bottles");
-
-                    b.Navigation("WineryCountry");
                 });
 #pragma warning restore 612, 618
         }

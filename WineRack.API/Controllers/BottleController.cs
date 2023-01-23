@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WineRack.API.Controllers;
 
-[Route("winerack/bottle")]
+[Route("winerack/bottles")]
 [ApiController]
 public class BottleController : ControllerBase
 {
@@ -13,19 +13,19 @@ public class BottleController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpGet("collection")]
+    [HttpGet]
     public async Task<IActionResult> Index()
     {
         return Ok();
     }
 
-    [HttpGet("newBottle")]
+    [HttpPost]
     public async Task<IActionResult> CreateNew()
     {
         return Ok();
     }
 
-    [HttpGet("bottle")]
+    [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int bottleId)
     {
         return Ok();
